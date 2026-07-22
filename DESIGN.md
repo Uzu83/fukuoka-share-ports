@@ -6,8 +6,9 @@
 
 Night harbor after rain: deep teal water, soft path lights, quiet urgency of
 “find one rideable vehicle now.” Calm field tool, not a marketing splash.
-Signature: the **live status pill** and **operator handoff CTA** as the only
-loud actions. Atmosphere via layered radial washes and a faint dock-line texture.
+Signature: the **live status pill**, **trend rail**, and **operator handoff CTA**.
+Atmosphere via layered radial washes, film grain, glass surfaces, and a faint
+dock-line texture. Typography pair: Shippori Mincho (brand) + Zen Maru (UI).
 
 ## 2. Color Palette & Roles
 
@@ -33,8 +34,9 @@ loud actions. Atmosphere via layered radial washes and a faint dock-line texture
 
 ## 3. Typography Rules
 
-- **Display / UI:** Zen Maru Gothic (rounded Japanese, civic tool)
-- Hierarchy: brand mark ~2.35–2.6rem bold; port name ~1.1rem bold; meta 12–13px faint
+- **Brand display:** Shippori Mincho (editorial weight on product name only)
+- **UI / body:** Zen Maru Gothic (rounded Japanese, civic tool)
+- Hierarchy: brand mark ~2.45–2.75rem; port name ~1.1rem bold; meta 12–13px faint
 - Avoid Inter / Roboto / system-ui as the voice of the product
 
 ## 4. Component Stylings
@@ -51,6 +53,11 @@ loud actions. Atmosphere via layered radial washes and a faint dock-line texture
 ### Filters & notices
 - `.filter-chip` — operator toggles (`data-on`)
 - `.notice` — demo honesty / empty states
+
+### Trend rail
+- `.trend-rail` / `.trend-card` — horizontal snap shelf（いま熱いエリア）
+- Heat bar from availability + terminal signals (`rankAreaTrends`)
+- Tap filters the nearby list; tap again clears
 
 ### Motion
 - `.reveal` / `.reveal-delay-*` — short rise-in; respect `prefers-reduced-motion`

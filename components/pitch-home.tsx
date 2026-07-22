@@ -1,13 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { FavoritePortControls } from "@/components/favorite-port-controls";
 import { OpenOperatorAppButton } from "@/components/open-operator-app-button";
 import { PortSignalActions } from "@/components/port-signal-actions";
 import { SEED_PORTS } from "@/lib/data/seed-ports";
+import { readSignalsFromStorage } from "@/lib/demand/store";
+import { rankAreaTrends } from "@/lib/domain/area-trends";
 import { OPERATORS, type OperatorId } from "@/lib/domain/operator";
 import { isLikelyUsable } from "@/lib/domain/port";
+import type { PortSignal } from "@/lib/domain/port-signal";
 import { DEMO_ORIGIN, useUserLocation } from "@/lib/geo/use-user-location";
 import { rankNearbyPorts } from "@/lib/ports/nearby";
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/product";
@@ -46,29 +49,52 @@ export function PitchHome() {
     luup: true,
     rakusuku: true,
   });
+  const [areaFilter, setAreaFilter] = useState<string | null>(null);
+  const [signals, setSignals] = useState<PortSignal[]>([]);
+
+  useEffect(() => {
+    setSignals(readSignalsFromStorage());
+  }, []);
+
+  function refreshSignals() {
+    setSignals(readSignalsFromStorage());
+  }
 
   const activeOps = useMemo(
     () => OPERATOR_ORDER.filter((id) => enabledOps[id]),
     [enabledOps],
   );
 
-  const nearby = useMemo(
-    () =>
-      rankNearbyPorts(
-        SEED_PORTS,
-        { lat: location.lat, lng: location.lng },
-        {
-          operatorIds: activeOps.length > 0 ? activeOps : OPERATOR_ORDER,
-          limit: 12,
-        },
-      ),
-    [location.lat, location.lng, activeOps],
+  const trends = useMemo(
+    () => rankAreaTrends(SEED_PORTS, signals, { limit: 5 }),
+    [signals],
   );
+
+  const maxHeat = trends[0]?.heat ?? 1;
+
+  const nearby = useMemo(() => {
+    const ranked = rankNearbyPorts(
+      SEED_PORTS,
+      { lat: location.lat, lng: location.lng },
+      {
+        operatorIds: activeOps.length > 0 ? activeOps : OPERATOR_ORDER,
+        limit: 24,
+      },
+    );
+    const filtered = areaFilter
+      ? ranked.filter((port) => port.areaLabel === areaFilter)
+      : ranked;
+    return filtered.slice(0, 12);
+  }, [location.lat, location.lng, activeOps, areaFilter]);
 
   const nearestId = nearby[0]?.id;
 
   function toggleOp(id: OperatorId) {
     setEnabledOps((prev) => ({ ...prev, [id]: !prev[id] }));
+  }
+
+  function toggleArea(areaLabel: string) {
+    setAreaFilter((prev) => (prev === areaLabel ? null : areaLabel));
   }
 
   const originLabel =
@@ -82,7 +108,7 @@ export function PitchHome() {
         <header className="reveal flex flex-col gap-5">
           <p className="meta-line uppercase">福岡 · シェアポート横断</p>
           <div className="flex flex-col gap-3">
-            <h1 className="brand-mark text-[2.35rem] font-bold leading-none tracking-tight text-[var(--ink)] sm:text-[2.6rem]">
+            <h1 className="brand-mark text-[2.45rem] font-bold leading-none sm:text-[2.75rem]">
               {PRODUCT_NAME}
             </h1>
             <p className="max-w-[22rem] text-[0.98rem] leading-relaxed text-[var(--muted)]">
@@ -105,17 +131,67 @@ export function PitchHome() {
         >
           <p className="font-medium text-[var(--warn)]">ピッチ用デモ</p>
           <p className="mt-1">
-            ポート位置・満空はサンプルです。正確な空き・予約・解錠は各社公式アプリで確認してください。
+            ポート位置・満空はサンプルです。トレンドは空きと端末内シグナルから近似しています。
           </p>
         </section>
 
-        <section className="reveal reveal-delay-2 flex flex-col gap-3">
+        {trends.length > 0 ? (
+          <section
+            className="reveal reveal-delay-2 flex flex-col gap-3"
+            aria-label="いま熱いエリア"
+          >
+            <div>
+              <h2 className="text-[1.05rem] font-bold tracking-tight text-[var(--ink)]">
+                いま熱いエリア
+              </h2>
+              <p className="mt-1 text-[0.8rem] text-[var(--faint)]">
+                乗れる台数と「乗るわ / 乗りたかった」から。タップで絞り込み
+              </p>
+            </div>
+            <div className="trend-rail">
+              {trends.map((trend) => {
+                const on = areaFilter === trend.areaLabel;
+                const width = Math.max(
+                  18,
+                  Math.round((trend.heat / maxHeat) * 100),
+                );
+                return (
+                  <button
+                    key={trend.areaLabel}
+                    type="button"
+                    className="trend-card"
+                    data-on={on ? "true" : "false"}
+                    aria-pressed={on}
+                    onClick={() => toggleArea(trend.areaLabel)}
+                  >
+                    <span className="meta-line uppercase">{trend.label}</span>
+                    <span className="mt-1 block text-[1.05rem] font-bold tracking-tight">
+                      {trend.areaLabel}
+                    </span>
+                    <span className="mt-1 block text-[0.75rem] text-[var(--faint)]">
+                      乗れる {trend.usablePorts}
+                      {trend.signalCount > 0
+                        ? ` · 信号 ${trend.signalCount}`
+                        : ""}
+                    </span>
+                    <span className="trend-heat" aria-hidden="true">
+                      <span style={{ width: `${width}%` }} />
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
+
+        <section className="reveal reveal-delay-3 flex flex-col gap-3">
           <div className="flex items-end justify-between gap-3">
             <div>
               <h2 className="text-[1.05rem] font-bold tracking-tight text-[var(--ink)]">
                 近くのポート
               </h2>
               <p className="mt-1 text-[0.8rem] text-[var(--faint)]">
+                {areaFilter ? `${areaFilter} · ` : ""}
                 {originLabel}
                 {location.error ? ` · ${location.error}` : ""}
               </p>
@@ -197,7 +273,10 @@ export function PitchHome() {
 
                     <div className="mt-4 flex flex-col gap-3">
                       <OpenOperatorAppButton port={port} />
-                      <PortSignalActions port={port} />
+                      <PortSignalActions
+                        port={port}
+                        onSignalSaved={refreshSignals}
+                      />
                       <FavoritePortControls port={port} />
                     </div>
                   </li>

@@ -17,13 +17,15 @@ type Props = {
     SharePort,
     "id" | "cityId" | "operatorId" | "name" | "areaLabel" | "availability"
   >;
+  /** シグナル保存後（トレンド再計算など）。 */
+  onSignalSaved?: () => void;
 };
 
 type Draft = {
   kind: PortSignalKind;
 } | null;
 
-export function PortSignalActions({ port }: Props) {
+export function PortSignalActions({ port, onSignalSaved }: Props) {
   const [draft, setDraft] = useState<Draft>(null);
   const [destination, setDestination] = useState("");
   const [done, setDone] = useState<Partial<Record<PortSignalKind, boolean>>>(
@@ -46,6 +48,7 @@ export function PortSignalActions({ port }: Props) {
     setDone((d) => ({ ...d, [kind]: true }));
     setDraft(null);
     setDestination("");
+    onSignalSaved?.();
   }
 
   if (draft) {

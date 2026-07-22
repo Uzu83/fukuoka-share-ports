@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Zen_Maru_Gothic } from "next/font/google";
+import { Shippori_Mincho, Zen_Maru_Gothic } from "next/font/google";
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/product";
 import "./globals.css";
 
@@ -7,6 +7,12 @@ const zenMaru = Zen_Maru_Gothic({
   weight: ["500", "700"],
   subsets: ["latin"],
   variable: "--font-zen-maru",
+});
+
+const shippori = Shippori_Mincho({
+  weight: ["600", "700"],
+  subsets: ["latin"],
+  variable: "--font-shippori",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${zenMaru.variable} h-full antialiased`}>
+    <html
+      lang="ja"
+      className={`${zenMaru.variable} ${shippori.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col font-[family-name:var(--font-zen-maru)]">
         {children}
       </body>
