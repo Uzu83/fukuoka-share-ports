@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Zen_Maru_Gothic } from "next/font/google";
+import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/product";
 import "./globals.css";
 
 const zenMaru = Zen_Maru_Gothic({
@@ -9,9 +10,9 @@ const zenMaru = Zen_Maru_Gothic({
 });
 
 export const metadata: Metadata = {
-  title: "シェアポートいま何台？（仮）",
+  title: `${PRODUCT_NAME}（仮）— ${PRODUCT_TAGLINE}`,
   description:
-    "近くのシェアポートと貸出可否をまとめて見る。最初期は福岡から。チャリチャリ・LUUP・ラクすく対応予定。",
+    "チャリチャリ・LUUP・ラクすくを横断して近くのポートと貸出可否を見るピッチ用デモ。予約は各社公式アプリへ。",
 };
 
 export default function RootLayout({
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={`${zenMaru.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-[family-name:var(--font-zen-maru)]">
+      <body className="flex min-h-full flex-col font-[family-name:var(--font-zen-maru)]">
         {children}
       </body>
     </html>
