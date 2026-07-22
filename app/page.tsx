@@ -1,3 +1,4 @@
+import { FavoritePortControls } from "@/components/favorite-port-controls";
 import { OpenOperatorAppButton } from "@/components/open-operator-app-button";
 import { PortSignalActions } from "@/components/port-signal-actions";
 import { SEED_PORTS } from "@/lib/data/seed-ports";
@@ -84,6 +85,7 @@ export default function Home() {
                   {avail.text}
                 </div>
               </div>
+              <FavoritePortControls port={port} />
               <OpenOperatorAppButton port={port} />
               <PortSignalActions port={port} />
             </li>
