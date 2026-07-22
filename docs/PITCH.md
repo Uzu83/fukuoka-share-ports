@@ -32,8 +32,9 @@
 ```bash
 cd ~/development/projects/fukuoka-share-ports
 pnpm install && pnpm dev
-# 公開: Vercel に接続して preview URL
 ```
+
+**デモURL:** https://fukuoka-share-ports.vercel.app
 
 ## Skills（UI）
 

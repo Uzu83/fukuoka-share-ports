@@ -16,6 +16,7 @@ pnpm check
 - ピッチ原稿: [docs/PITCH.md](docs/PITCH.md)
 - デザイン正: [DESIGN.md](DESIGN.md)
 - UI skills（消毒済み）: `.cursor/skills/`
+- **デモURL**: https://fukuoka-share-ports.vercel.app
 
 ## いまの状態
 
