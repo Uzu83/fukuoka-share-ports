@@ -1,7 +1,7 @@
 <!-- notion-page: TODO -->
 <!-- dev-secure-profile: prototype -->
 
-# fukuoka-share-ports（プロダクト名未定）
+# ポートなう（仮） / fukuoka-share-ports
 
 ## これは何か
 
@@ -9,6 +9,7 @@
 - **誰に**: 「今乗れる一台」を探している人
 - **なぜ**: 公式アプリを複数開かずに、徒歩圏の空きだけ知りたい
 - **出荷順**: **最初期は福岡**で検証 → 他都市へ広げる（福岡永久限定ではない）
+- **UI**: `DESIGN.md` + `.cursor/skills/`（消毒済み・詳細は `docs/decisions/2026-07-22-skills-adoption.md`）
 
 ## スタック / コマンド
 

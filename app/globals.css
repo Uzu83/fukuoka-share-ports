@@ -17,3 +17,11 @@ body {
     var(--bg);
   color: var(--ink);
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .port-card {
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+}
