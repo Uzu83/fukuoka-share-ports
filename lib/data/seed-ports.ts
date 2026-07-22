@@ -1,12 +1,13 @@
 import type { SharePort } from "@/lib/domain/port";
 
 /**
- * デモ用シード。実在ポートの正確な満空ではない。
- * 本番は事業者 API / 公式連携アダプタに差し替える。
+ * デモ用シード（最初期都市: 福岡）。実在ポートの正確な満空ではない。
+ * 本番は事業者 API / 公式連携アダプタに差し替える。都市追加時は cityId を増やす。
  */
 export const SEED_PORTS: SharePort[] = [
   {
     id: "cc-tenjin-1",
+    cityId: "fukuoka",
     operatorId: "charichari",
     name: "天神コア前（デモ）",
     lat: 33.5902,
@@ -21,6 +22,7 @@ export const SEED_PORTS: SharePort[] = [
   },
   {
     id: "cc-hakata-1",
+    cityId: "fukuoka",
     operatorId: "charichari",
     name: "博多駅筑紫口（デモ）",
     lat: 33.5904,
@@ -35,6 +37,7 @@ export const SEED_PORTS: SharePort[] = [
   },
   {
     id: "luup-ohori-1",
+    cityId: "fukuoka",
     operatorId: "luup",
     name: "大濠公園東（デモ）",
     lat: 33.5865,
@@ -49,6 +52,7 @@ export const SEED_PORTS: SharePort[] = [
   },
   {
     id: "luup-tenjin-1",
+    cityId: "fukuoka",
     operatorId: "luup",
     name: "天神地下街付近（デモ）",
     lat: 33.5898,
@@ -63,6 +67,7 @@ export const SEED_PORTS: SharePort[] = [
   },
   {
     id: "rk-akasakamori-1",
+    cityId: "fukuoka",
     operatorId: "rakusuku",
     name: "赤坂門付近（デモ）",
     lat: 33.5859,
@@ -77,6 +82,7 @@ export const SEED_PORTS: SharePort[] = [
   },
   {
     id: "rk-yakuin-1",
+    cityId: "fukuoka",
     operatorId: "rakusuku",
     name: "薬院大通（デモ）",
     lat: 33.5816,
