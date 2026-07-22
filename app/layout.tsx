@@ -9,9 +9,9 @@ const zenMaru = Zen_Maru_Gothic({
 });
 
 export const metadata: Metadata = {
-  title: "福岡シェアポート（仮）",
+  title: "シェアポートいま何台？（仮）",
   description:
-    "福岡市限定。チャリチャリ・LUUP・ラクすくの近くのポートと貸出可否をまとめて見る。",
+    "近くのシェアポートと貸出可否をまとめて見る。最初期は福岡から。チャリチャリ・LUUP・ラクすく対応予定。",
 };
 
 export default function RootLayout({

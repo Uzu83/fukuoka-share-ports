@@ -27,14 +27,14 @@ export default function Home() {
     <div className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-16 pt-8">
       <header className="mb-8">
         <p className="text-sm tracking-wide text-[var(--muted)]">
-          福岡市限定 · 仮名なし
+          最初期エリア: 福岡 · 仮名なし
         </p>
         <h1 className="mt-1 text-3xl font-bold tracking-tight">
           シェアポートいま何台？
         </h1>
         <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted)]">
           チャリチャリ / LUUP / ラクすくの近くのポートと、貸出できそうかを一覧。
-          いまはデモシード（満空は本物じゃない）。
+          いまは福岡デモシード（満空は本物じゃない）。あとから他都市へ広げる。
         </p>
       </header>
 

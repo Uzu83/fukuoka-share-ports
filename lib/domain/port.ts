@@ -11,8 +11,12 @@ export type PortAvailability = {
   source: "seed" | "live";
 };
 
+/** 都市キー。最初期は fukuoka のみシード。多都市追加を前提。 */
+export type CityId = "fukuoka";
+
 export type SharePort = {
   id: string;
+  cityId: CityId;
   operatorId: OperatorId;
   name: string;
   lat: number;
