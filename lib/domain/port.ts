@@ -26,7 +26,7 @@ export type SharePort = {
   availability: PortAvailability;
 };
 
-export function isLikelyUsable(port: SharePort): boolean {
+export function isLikelyUsable(port: Pick<SharePort, "availability">): boolean {
   const n = port.availability.vehiclesAvailable;
   return n !== null && n > 0;
 }

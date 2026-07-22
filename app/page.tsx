@@ -1,3 +1,4 @@
+import { OpenOperatorAppButton } from "@/components/open-operator-app-button";
 import { PortSignalActions } from "@/components/port-signal-actions";
 import { SEED_PORTS } from "@/lib/data/seed-ports";
 import { OPERATORS, type OperatorId } from "@/lib/domain/operator";
@@ -83,6 +84,7 @@ export default function Home() {
                   {avail.text}
                 </div>
               </div>
+              <OpenOperatorAppButton port={port} />
               <PortSignalActions port={port} />
             </li>
           );
@@ -92,7 +94,8 @@ export default function Home() {
       <footer className="mt-10 text-xs leading-relaxed text-[var(--muted)]">
         リポジトリ名:{" "}
         <code className="text-[var(--ink)]">fukuoka-share-ports</code>
-        。プロダクト名は未定。満空はシードのみ。「乗るわ / 乗りたかった」は端末にだけ記録。
+        。プロダクト名は未定。満空はシードのみ。「乗るわ /
+        乗りたかった」は端末にだけ記録。
       </footer>
     </div>
   );
