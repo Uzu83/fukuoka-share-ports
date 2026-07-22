@@ -4,58 +4,63 @@
 
 ## 1. Visual Theme & Atmosphere
 
-Night dock and bike-lane after rain: deep teal harbor water, warm path lights,
-quiet urgency of “find one rideable vehicle now.” Information-dense but calm —
-a glanceable field tool, not a marketing splash. Signature: the **live status strip**
-and **operator handoff CTA** as the only loud actions.
+Night harbor after rain: deep teal water, soft path lights, quiet urgency of
+“find one rideable vehicle now.” Calm field tool, not a marketing splash.
+Signature: the **live status pill** and **operator handoff CTA** as the only
+loud actions. Atmosphere via layered radial washes and a faint dock-line texture.
 
 ## 2. Color Palette & Roles
 
 ### Primary Foundation
-- **Harbor Night** `#0f2a24` — page background
-- **Pier Plank** `#16352d` — elevated cards / surfaces
-- Radial washes: `#1d4a3c`, `#243b55` — atmosphere only, not brand purple
+- **Harbor Night** `#071612` / mid `#0c211c` — page background stack
+- **Pier Plank** gradient on cards (`#163229` → `#0e221c`) — elevated surfaces
+- Radial washes: `#14352c`, `#132433` — atmosphere only (not brand purple)
 
 ### Accent & Interactive
-- **Dock Light** `#7dcea0` — primary CTA fill text on dark, success / usable
-- **Ink Foam** `#f3f7f4` — primary text on dark surfaces
-- **Path Mist** `#a8c0b6` — secondary / muted text
+- **Dock Light** `#8fd9ad` — usable status, active filters, signal confirmation
+- **Ink Foam** `#f2f7f4` — primary text; inverse fill for primary CTA
+- **Path Mist** `#8fa89c` / **Faint** `#6a8276` — secondary / meta
 
 ### Functional States
-- **Caution Lamp** `#f0c674` — low stock / notify-on
-- **No-Ride Coral** `#e07a7a` — zero available
-- Demo banner: translucent warm wash over Harbor Night (not cream-template)
+- **Caution Lamp** `#e2c07a` — low stock / notify-on
+- **No-Ride Coral** `#d98888` — zero available
+- Demo honesty band: notice surface + caution label (not cream-template)
+
+### Tokens (`globals.css`)
+`--bg`, `--bg-mid`, `--bg-elevated`, `--line`, `--line-strong`, `--ink`,
+`--muted`, `--faint`, `--accent`, `--accent-dim`, `--warn`, `--warn-dim`,
+`--bad`, `--bad-dim`, `--radius-card`, `--radius-control`, `--shadow-card`
 
 ## 3. Typography Rules
 
-- **Display / UI:** Zen Maru Gothic (rounded Japanese, friendly civic tool)
-- Hierarchy: page title ~30px bold; port name ~18px bold; meta 12–14px muted
+- **Display / UI:** Zen Maru Gothic (rounded Japanese, civic tool)
+- Hierarchy: brand mark ~2.35–2.6rem bold; port name ~1.1rem bold; meta 12–13px faint
 - Avoid Inter / Roboto / system-ui as the voice of the product
 
 ## 4. Component Stylings
 
 ### Buttons
-- Primary handoff: solid Ink Foam on Harbor Night (`#f3f7f4` on `#0f2a24` text inverse) — “チャリチャリで乗る”
-- Signal actions: bordered, quieter — “乗るわ / 乗りたかった”
-- Favorite chips: pill, accent border when active
+- `.btn-primary` — Ink Foam on Harbor Night, full-width handoff (“〜で乗る”)
+- `.btn-ghost` — bordered, quieter signals and secondary links
+- `.btn-quiet` — pill chips for favorite / notify (`data-on`, optional `data-tone="warn"`)
 
 ### Cards
-- Rounded-2xl, hairline white/10 border, Pier Plank fill
-- No heavy multi-layer shadows; reliance on surface contrast
+- `.port-card` — interaction container only; hairline border, soft shadow, usable tint
+- Status: `.status-pill` with `data-tone` = `ok` | `low` | `bad` | `muted`
 
-### Banners
-- Demo honesty banner always first viewport-adjacent
-- GPS status as small utility line
+### Filters & notices
+- `.filter-chip` — operator toggles (`data-on`)
+- `.notice` — demo honesty / empty states
 
-### Filters
-- Operator toggles as selectable pills (selected = Dock Light border/fill tint)
+### Motion
+- `.reveal` / `.reveal-delay-*` — short rise-in; respect `prefers-reduced-motion`
 
 ## 5. Layout Principles
 
 - Max width ~32rem (mobile-first single column)
-- Edge padding 16px; card stack gap 12px
+- Edge padding 20px; section gap 32px; card stack gap 12px
 - Touch targets ≥ 40px height on primary actions
-- `prefers-reduced-motion`: disable non-essential transitions
+- First viewport: brand, one supporting line, feedback CTA, demo honesty — no stats strips
 
 ## 6. Pitch / Product Notes
 
