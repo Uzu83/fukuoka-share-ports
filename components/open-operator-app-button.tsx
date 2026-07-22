@@ -25,7 +25,7 @@ export function OpenOperatorAppButton({ port }: Props) {
         href={launch.appOrWeb}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-3 block w-full rounded-xl border border-white/10 px-3 py-2 text-center text-sm text-[var(--muted)] hover:border-white/25"
+        className="btn-ghost block w-full text-center text-sm text-[var(--muted)]"
       >
         {launch.ctaLabel.replace("で乗る", "アプリを開く")}
       </a>
@@ -33,21 +33,21 @@ export function OpenOperatorAppButton({ port }: Props) {
   }
 
   return (
-    <div className="mt-3 flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <a
         href={launch.appOrWeb}
         target="_blank"
         rel="noopener noreferrer"
-        className="block w-full rounded-xl bg-[var(--ink)] px-3 py-2.5 text-center text-sm font-bold text-[var(--bg)] hover:opacity-90"
+        className="btn-primary text-sm"
       >
         {launch.ctaLabel}
       </a>
-      <div className="flex gap-2 text-xs">
+      <div className="flex gap-2">
         <a
           href={launch.mapsHint}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 rounded-lg border border-white/10 px-2 py-1.5 text-center text-[var(--muted)] hover:border-white/25"
+          className="btn-ghost flex-1 !py-2 text-center text-xs text-[var(--muted)]"
         >
           地図で場所
         </a>
@@ -55,7 +55,7 @@ export function OpenOperatorAppButton({ port }: Props) {
           href={launch.storeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 rounded-lg border border-white/10 px-2 py-1.5 text-center text-[var(--muted)] hover:border-white/25"
+          className="btn-ghost flex-1 !py-2 text-center text-xs text-[var(--muted)]"
         >
           アプリを入れる
         </a>

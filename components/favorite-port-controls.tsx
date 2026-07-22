@@ -54,15 +54,12 @@ export function FavoritePortControls({ port }: Props) {
   }
 
   return (
-    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+    <div className="flex flex-wrap items-center gap-2">
       <button
         type="button"
         onClick={toggleFavorite}
-        className={`rounded-full border px-2.5 py-1 ${
-          saved
-            ? "border-[var(--accent)]/50 bg-[var(--accent)]/15 text-[var(--accent)]"
-            : "border-white/15 text-[var(--muted)]"
-        }`}
+        className="btn-quiet"
+        data-on={saved ? "true" : "false"}
       >
         {saved ? "お気に入り中" : "お気に入り"}
       </button>
@@ -70,11 +67,9 @@ export function FavoritePortControls({ port }: Props) {
         <button
           type="button"
           onClick={toggleNotify}
-          className={`rounded-full border px-2.5 py-1 ${
-            fav?.notifyWhenUsable
-              ? "border-[var(--warn)]/50 text-[var(--warn)]"
-              : "border-white/15 text-[var(--muted)]"
-          }`}
+          className="btn-quiet"
+          data-on={fav?.notifyWhenUsable ? "true" : "false"}
+          data-tone={fav?.notifyWhenUsable ? "warn" : undefined}
           title="満空の live 連携後に配信。いまは設定だけ保存"
         >
           {fav?.notifyWhenUsable ? "使えるヤツ来たら通知 ON" : "通知 OFF"}

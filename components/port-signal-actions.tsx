@@ -17,13 +17,15 @@ type Props = {
     SharePort,
     "id" | "cityId" | "operatorId" | "name" | "areaLabel" | "availability"
   >;
+  /** シグナル保存後（トレンド再計算など）。 */
+  onSignalSaved?: () => void;
 };
 
 type Draft = {
   kind: PortSignalKind;
 } | null;
 
-export function PortSignalActions({ port }: Props) {
+export function PortSignalActions({ port, onSignalSaved }: Props) {
   const [draft, setDraft] = useState<Draft>(null);
   const [destination, setDestination] = useState("");
   const [done, setDone] = useState<Partial<Record<PortSignalKind, boolean>>>(
@@ -46,16 +48,17 @@ export function PortSignalActions({ port }: Props) {
     setDone((d) => ({ ...d, [kind]: true }));
     setDraft(null);
     setDestination("");
+    onSignalSaved?.();
   }
 
   if (draft) {
     const isWanted = draft.kind === "wanted";
     return (
-      <div className="mt-3 rounded-xl border border-white/15 bg-black/25 p-3">
-        <p className="text-sm font-medium">
+      <div className="notice px-3.5 py-3">
+        <p className="text-sm font-medium text-[var(--ink)]">
           {isWanted ? "乗りたかった意思を送る" : "乗る意思を送る"}
         </p>
-        <label className="mt-2 block text-xs text-[var(--muted)]">
+        <label className="mt-2 block text-xs text-[var(--faint)]">
           {isWanted
             ? "どこまで行きたかった？（任意）"
             : "どこまで行く？（任意）"}
@@ -63,14 +66,14 @@ export function PortSignalActions({ port }: Props) {
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
             placeholder="例: 博多駅 / 会社"
-            className="mt-1 w-full rounded-lg border border-white/10 bg-[var(--bg)] px-3 py-2 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--muted)] focus:border-[var(--accent)]/50"
+            className="mt-1.5 w-full rounded-[var(--radius-control)] border border-[var(--line-strong)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--faint)] focus:border-[var(--accent)]/45"
           />
         </label>
-        <div className="mt-2 flex gap-2">
+        <div className="mt-2.5 flex gap-2">
           <button
             type="button"
             onClick={() => persist(draft.kind)}
-            className="flex-1 rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-bold text-[#0b1f19]"
+            className="btn-primary !w-auto flex-1 !py-2 text-sm"
           >
             送る
           </button>
@@ -80,7 +83,7 @@ export function PortSignalActions({ port }: Props) {
               setDraft(null);
               setDestination("");
             }}
-            className="rounded-lg px-3 py-2 text-sm text-[var(--muted)]"
+            className="rounded-[var(--radius-control)] px-3 py-2 text-sm text-[var(--muted)]"
           >
             やめる
           </button>
@@ -90,7 +93,7 @@ export function PortSignalActions({ port }: Props) {
   }
 
   return (
-    <div className="mt-3 flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       {done.rode ? (
         <p className="text-xs text-[var(--accent)]">
           乗るわ、記録した。いいね。
@@ -99,20 +102,20 @@ export function PortSignalActions({ port }: Props) {
         <button
           type="button"
           onClick={() => setDraft({ kind: "rode" })}
-          className="w-full rounded-xl border border-[var(--accent)]/35 bg-[var(--accent)]/10 px-3 py-2 text-left text-sm font-medium text-[var(--ink)] hover:bg-[var(--accent)]/20"
+          className="btn-ghost w-full text-left text-sm font-medium"
         >
           これ乗るわ😎
         </button>
       )}
       {done.wanted ? (
-        <p className="text-xs text-[var(--muted)]">
+        <p className="text-xs text-[var(--faint)]">
           乗りたかった、記録したよ。
         </p>
       ) : (
         <button
           type="button"
           onClick={() => setDraft({ kind: "wanted" })}
-          className="w-full rounded-xl border border-white/15 bg-black/20 px-3 py-2 text-left text-sm font-medium text-[var(--ink)] hover:border-[var(--accent)]/40"
+          className="btn-ghost w-full text-left text-sm font-medium text-[var(--muted)]"
         >
           ここから乗りたかった😭
         </button>
