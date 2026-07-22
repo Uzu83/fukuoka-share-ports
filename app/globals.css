@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0f2a24;
+  --bg-elevated: #16352d;
+  --ink: #f3f7f4;
+  --muted: #a8c0b6;
+  --accent: #7dcea0;
+  --warn: #f0c674;
+  --bad: #e07a7a;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #1d4a3c 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #243b55 0%, transparent 50%),
+    var(--bg);
+  color: var(--ink);
+}
