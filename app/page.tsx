@@ -1,3 +1,4 @@
+import { WantedRideButton } from "@/components/wanted-ride-button";
 import { SEED_PORTS } from "@/lib/data/seed-ports";
 import { OPERATORS, type OperatorId } from "@/lib/domain/operator";
 import { isLikelyUsable } from "@/lib/domain/port";
@@ -82,6 +83,7 @@ export default function Home() {
                   {avail.text}
                 </div>
               </div>
+              <WantedRideButton port={port} />
             </li>
           );
         })}
@@ -90,7 +92,7 @@ export default function Home() {
       <footer className="mt-10 text-xs leading-relaxed text-[var(--muted)]">
         リポジトリ名:{" "}
         <code className="text-[var(--ink)]">fukuoka-share-ports</code>
-        。プロダクト名は未定。データは事業者公式連携が取れるまでシードのみ。
+        。プロダクト名は未定。満空はシードのみ。「ここから乗りたかった」は端末にだけ記録。
       </footer>
     </div>
   );
