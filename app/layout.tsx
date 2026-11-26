@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Shippori_Mincho, Zen_Maru_Gothic } from "next/font/google";
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from "@/lib/product";
@@ -33,6 +35,8 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col font-[family-name:var(--font-zen-maru)]">
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
